@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Temperatureup</string>
+    <string name="Temperature">体温上报</string>
+</resources>

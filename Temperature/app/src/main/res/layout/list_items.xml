@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:orientation="vertical"
+    android:background="@color/grey">
+    <RelativeLayout
+        android:id="@+id/main_ra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey">
+        <TextView
+            android:id="@+id/main_tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_alignParentLeft="true"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textSize="20sp"
+            android:text="name"
+            android:ellipsize="marquee" />
+
+        <TextView
+            android:id="@+id/main_tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/main_tv_name"
+            android:layout_marginLeft="30dp"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:text="2021-02-01 15:30"/>
+        <TextView
+            android:id="@+id/main_tv_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="36.5℃"
+            android:textSize="20sp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/main_tv_there"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main_ra"
+        android:textSize="20sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:text="河北省邯郸市成安县"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"/>
+</RelativeLayout>
