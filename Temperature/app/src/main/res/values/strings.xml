@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Temperatureup</string>
     <string name="Temperature">体温上报</string>
+    <string name="phone">请输入手机号</string>
+    <string name="login">登录</string>
+    <string name="zhuce">注册</string>
 </resources>

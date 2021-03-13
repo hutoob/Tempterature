@@ -45,40 +45,60 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DatabaseHelper mdatabaseHelper;
     private TemperatureAdapter mAdapter;
     private TemperatureBean stemperatureBean=new TemperatureBean();
+    public String phone;
+    public String yname,banji;
+    ListView listView;
     TextView timeTV;
-    //  弹出按钮
-    private Button btnDiqu;
-    //  省
-    private List<ShengBean> options1Items = new ArrayList<ShengBean>();
-    //  市
-    private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
-    //  区
-    private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        phone=getIntent().getStringExtra("phone");
         mdatabaseHelper=new DatabaseHelper(this);
         mtemperatureBean=new ArrayList<>();
-        ListView temperaturelist=(ListView)findViewById(R.id.lv_main);
+        listView=(ListView)findViewById(R.id.lv_main);
         iniTemperatureData();
         mAdapter=new TemperatureAdapter(this,mtemperatureBean);
-        temperaturelist.setAdapter(mAdapter);
-        FloatingActionButton te_insert=findViewById(R.id.te_insert);
+        listView.setAdapter(mAdapter);
+        Button te_insert=findViewById(R.id.te_insert);
         te_insert.setOnClickListener(this);
+        Button back=findViewById(R.id.te_tuichu);
+        back.setOnClickListener(this);
+        Button up=findViewById(R.id.main_up);
+        Button daochu=findViewById(R.id.main_daochu);
+        up.setOnClickListener(this);
+        daochu.setOnClickListener(this);
     }
+    public void getYname(){
+        Cursor cursor=mdatabaseHelper.getAllYonghuData();
+        if(cursor!=null){
+            while(cursor.moveToNext()){
+                String gname=cursor.getString(cursor.getColumnIndex("yh_name"));
+                String gphone=cursor.getString(cursor.getColumnIndex("yh_phone"));
+                String gbanji=cursor.getString(cursor.getColumnIndex("yh_banji"));
+                if(gphone.equals(phone)){
+                    yname=gname;
+                    banji=gbanji;
+                }
+            }
+        }
 
+    }
     private void iniTemperatureData(){
         Cursor cursor=mdatabaseHelper.getAllTemperatureData();
+        getYname();
         if(cursor!=null){
             while (cursor.moveToNext()){
-                TemperatureBean temperatureBean=new TemperatureBean();
-                temperatureBean.n_ame=cursor.getString(cursor.getColumnIndex("tem_name"));
-                temperatureBean.timeTv=cursor.getString(cursor.getColumnIndex("tem_time"));
-                temperatureBean.temperature=cursor.getString(cursor.getColumnIndex("tem_temperature"));
-                temperatureBean.where=cursor.getString(cursor.getColumnIndex("tem_where"));
-                mtemperatureBean.add(temperatureBean);
+                String gname=cursor.getString(cursor.getColumnIndex("tem_name"));
+                if(gname.equals(yname)) {
+                    TemperatureBean temperatureBean = new TemperatureBean();
+                    temperatureBean.n_ame = gname;
+                    temperatureBean.timeTv = cursor.getString(cursor.getColumnIndex("tem_time"));
+                    temperatureBean.temperature = cursor.getString(cursor.getColumnIndex("tem_temperature"));
+                    temperatureBean.where = cursor.getString(cursor.getColumnIndex("tem_where"));
+                    temperatureBean.tesu=cursor.getString(cursor.getColumnIndex("tem_tesu"));
+                    mtemperatureBean.add(temperatureBean);
+                }
             }
             cursor.close();
         }
@@ -88,11 +108,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.te_insert:
                 Intent itl=new Intent(this,newshuju.class);
+                itl.putExtra("name",yname);
+                itl.putExtra("phone",phone);
                 startActivity(itl);
+                break;
+            case R.id.te_tuichu:
+                Intent it=new Intent(this,LoginActivity.class);
+                startActivity(it);
+                break;
+            case R.id.main_up:
+                Intent it2=new Intent(this,UpActivity.class);
+                it2.putExtra("name",yname);
+                it2.putExtra("phone",phone);
+                it2.putExtra("banji",banji);
+                startActivity(it2);
+                break;
+            case R.id.main_daochu:
+                Intent it3=new Intent(this,DaochuActivity.class);
+                it3.putExtra("name",yname);
+                it3.putExtra("phone",phone);
+                startActivity(it3);
                 break;
         }
     }
-    @Override
+   /* @Override
     protected void onRestart() {
         super.onRestart();
         Intent intent = getIntent();
@@ -100,5 +139,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         finish();
         overridePendingTransition(0, 0);
         startActivity(intent);
-    }
+    }*/
 }

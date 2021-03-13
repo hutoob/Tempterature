@@ -51,4 +51,14 @@
         android:text="河北省邯郸市成安县"
         android:layout_alignParentLeft="true"
         android:gravity="center"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tesu"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/main_tv_there"
+        android:text="特殊情况"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"/>
 </RelativeLayout>

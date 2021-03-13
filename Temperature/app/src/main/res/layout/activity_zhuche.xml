@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    >
+    <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/tishi"
+    android:text="注册信息"
+    android:textColor="@color/black"
+    android:textSize="20sp"/>
+    <EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/name"
+    android:hint="姓名"
+    android:layout_below="@id/tishi"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/num"
+        android:hint="学号"
+        android:layout_below="@id/name"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/banji"
+        android:hint="班级"
+        android:layout_below="@id/num"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/zphone"
+        android:hint="手机号(11位)"
+        android:phoneNumber="true"
+        android:layout_below="@id/banji"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/zhuce01"
+        android:layout_below="@id/zphone"
+        android:text="注册"
+        android:background="@color/teal_200"/>
+</RelativeLayout>

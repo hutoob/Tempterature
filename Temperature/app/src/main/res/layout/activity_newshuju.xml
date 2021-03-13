@@ -3,12 +3,13 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center">
-    <EditText
+    <TextView
         android:id="@+id/et_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:hint="Name"/>
+        android:textSize="20sp"
+        android:text="Name"/>
 
     <EditText
         android:id="@+id/et_temperature"
@@ -16,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:layout_below="@id/et_name"
+        android:text="36.2"
         android:hint="Temperature"/>
     <TextView
         android:id="@+id/tv_time"
@@ -32,7 +34,76 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:background="@color/grey"
-        android:text="请选择地区" />
+        android:text="自动获取地址" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/shuoming"
+        android:layout_below="@id/btn_where"
+        android:text="特殊情况报备"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/shuoming"
+            android:orientation="vertical">
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/gp">
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rtn1"
+                    android:text="无特殊情况" />
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rtn2"
+                    android:text="2020年至今去过或现在居住在中高风险地区"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/et1"
+                    android:hint="请填写地区名称"
+                    android:visibility="gone"/>
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rtn3"
+                    android:text="本人或家人正在集中隔离"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/et2"
+                    android:hint="请填写原因"
+                    android:visibility="gone"/>
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rtn4"
+                    android:text="今日居住地异动"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/et3"
+                    android:hint="请说明情况"
+                    android:visibility="gone"/>
+                <RadioButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rtn5"
+                    android:text="其他情况"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/et4"
+                    android:hint="请说明情况"
+                    android:visibility="gone"/>
+            </RadioGroup>
+        </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

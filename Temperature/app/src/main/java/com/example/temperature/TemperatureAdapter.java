@@ -43,6 +43,7 @@ public class TemperatureAdapter extends BaseAdapter {
             viewHolder.mTvTime=convertView.findViewById(R.id.main_tv_time);
             viewHolder.mTvTemperature=convertView.findViewById(R.id.main_tv_temperature);
             viewHolder.mTvWhere=convertView.findViewById(R.id.main_tv_there);
+            viewHolder.mTvTesu=convertView.findViewById(R.id.tesu);
             convertView.setTag(viewHolder);
         }else {
             viewHolder=(ViewHolder)convertView.getTag();
@@ -52,6 +53,7 @@ public class TemperatureAdapter extends BaseAdapter {
         viewHolder.mTvTime.setText(bean.timeTv);
         viewHolder.mTvTemperature.setText(bean.temperature);
         viewHolder.mTvWhere.setText(bean.where);
+        viewHolder.mTvTesu.setText(bean.tesu);
         return convertView;
     }
     private static class ViewHolder{
@@ -59,5 +61,6 @@ public class TemperatureAdapter extends BaseAdapter {
         public TextView mTvTemperature;
         public TextView mTvTime;
         public TextView mTvWhere;
+        public TextView mTvTesu;
     }
 }

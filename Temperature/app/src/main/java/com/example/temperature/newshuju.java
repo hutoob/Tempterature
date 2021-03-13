@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -18,6 +19,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
@@ -39,8 +42,14 @@ public class newshuju extends AppCompatActivity implements View.OnClickListener 
     private TemperatureAdapter mAdapter;
     private TemperatureBean stemperatureBean=new TemperatureBean();
     TextView timeTV;
-    EditText name;
+    TextView name;
     EditText temperature;
+    String yname;
+    String phone;
+    String tesu;
+    RadioButton rtn1,rtn2,rtn3,rtn4,rtn5;
+    EditText et1,et2,et3,et4;
+    RadioGroup gp;
     private static final String[] authBaseArr = {//申请类型
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
@@ -58,20 +67,74 @@ public class newshuju extends AppCompatActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newshuju);
+        yname=getIntent().getStringExtra("name");
+        phone=getIntent().getStringExtra("phone");
         initview();
         setiniTime();
     }
     private void initview(){
-        name=(EditText)findViewById(R.id.et_name);
+        name=(TextView) findViewById(R.id.et_name);
+        name.setText(yname);
         timeTV=(TextView)findViewById(R.id.tv_time);
         temperature=findViewById(R.id.et_temperature);
         btnDiqu=findViewById(R.id.btn_where);
+        getwhere();
+        gp=findViewById(R.id.gp);
+        rtn1=findViewById(R.id.rtn1);
+        rtn2=findViewById(R.id.rtn2);
+        rtn3=findViewById(R.id.rtn3);
+        rtn4=findViewById(R.id.rtn4);
+        rtn5=findViewById(R.id.rtn5);
+        et1=findViewById(R.id.et1);
+        et2=findViewById(R.id.et2);
+        et3=findViewById(R.id.et3);
+        et4=findViewById(R.id.et4);
         cancel=findViewById(R.id.new_cancel);
         ensure=findViewById(R.id.new_ensure);
         mdatabaseHelper=new DatabaseHelper(this);
         cancel.setOnClickListener(this);
         btnDiqu.setOnClickListener(this);
         ensure.setOnClickListener(this);
+        gp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId==rtn1.getId()){
+                    tesu=rtn1.getText().toString();
+                    et1.setVisibility(View.GONE);
+                    et2.setVisibility(View.GONE);
+                    et3.setVisibility(View.GONE);
+                    et4.setVisibility(View.GONE);
+                }
+                else if(checkedId==rtn2.getId()){
+                    et1.setVisibility(View.VISIBLE);
+                    et2.setVisibility(View.GONE);
+                    et3.setVisibility(View.GONE);
+                    et4.setVisibility(View.GONE);
+                    tesu=rtn2.getText().toString()+et1.getText().toString();
+                }
+                else if(checkedId==rtn3.getId()){
+                    et2.setVisibility(View.VISIBLE);
+                    et1.setVisibility(View.GONE);
+                    et3.setVisibility(View.GONE);
+                    et4.setVisibility(View.GONE);
+                    tesu=rtn3.getText().toString()+et2.getText().toString();
+                }
+                else if(checkedId==rtn4.getId()){
+                    et3.setVisibility(View.VISIBLE);
+                    et1.setVisibility(View.GONE);
+                    et2.setVisibility(View.GONE);
+                    et4.setVisibility(View.GONE);
+                    tesu=rtn4.getText().toString()+et3.getText().toString();
+                }
+                else {
+                    et1.setVisibility(View.GONE);
+                    et2.setVisibility(View.GONE);
+                    et3.setVisibility(View.GONE);
+                    et4.setVisibility(View.VISIBLE);
+                    tesu=et4.getText().toString();
+                }
+            }
+        });
     }
     private void setiniTime(){
         Date date=new Date();
@@ -80,7 +143,7 @@ public class newshuju extends AppCompatActivity implements View.OnClickListener 
         stemperatureBean.setTimeTv(time);
         timeTV.setText(time);
     }
-    private void iniTemperatureData(){
+   /* private void iniTemperatureData(){
         Cursor cursor=mdatabaseHelper.getAllTemperatureData();
         if(cursor!=null){
             while (cursor.moveToNext()){
@@ -93,7 +156,7 @@ public class newshuju extends AppCompatActivity implements View.OnClickListener 
             }
             cursor.close();
         }
-    }
+    }*/
     private boolean hasBasePhoneAuth() {
         PackageManager pm = getPackageManager();
         for (String auth : authBaseArr) {
@@ -145,10 +208,25 @@ public class newshuju extends AppCompatActivity implements View.OnClickListener 
         }
         return "获取失败！";
     }
+    public void setStemperatureBean(){
+        Cursor cursor=mdatabaseHelper.getAllYonghuData();
+        if(cursor!=null){
+            while (cursor.moveToNext()){
+                String yphone=cursor.getString(cursor.getColumnIndex("yh_phone"));
+                if(phone.equals(yphone)){
+                    stemperatureBean.num=cursor.getString(cursor.getColumnIndex("yh_num"));
+                    stemperatureBean.banji=cursor.getString(cursor.getColumnIndex("yh_banji"));
+                    stemperatureBean.phone=yphone;
+                    break;
+                }
+            }
+            cursor.close();
+        }
+    }
     /**
      * 解析数据并组装成自己想要的list
      */
-    private void parseData(){
+/*    private void parseData(){
         String jsonStr = new GetJsonDataUtil().getJson(this, "province.json");//获取assets目录下的json文件数据
 //     数据解析
         Gson gson =new Gson();
@@ -176,21 +254,21 @@ public class newshuju extends AppCompatActivity implements View.OnClickListener 
                 }
                 province_AreaList.add(city_AreaList);
             }
-            /**
+            *//**
              * 添加城市数据
-             */
+             *//*
             options2Items.add(cityList);
-            /**
+            *//**
              * 添加地区数据
-             */
+             *//*
             options3Items.add(province_AreaList);
         }
 
     }
 
-    /**
+    *//**
      * 展示选择器
-     */
+     *//*
     private void showPickerView() {// 弹出选择器
 
         OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
@@ -212,12 +290,79 @@ public class newshuju extends AppCompatActivity implements View.OnClickListener 
                 .setContentTextSize(20)
                 .build();
 
-        /*pvOptions.setPicker(options1Items);//一级选择器
-        pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
+        *//*pvOptions.setPicker(options1Items);//一级选择器
+        pvOptions.setPicker(options1Items, options2Items);//二级选择器*//*
         pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
         pvOptions.show();
-    }
+    }*/
+    public void getwhere(){
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
+        initNavi();
+
+        //权限检查的代码
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            return;
+        }
+        locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,//指定GPS定位提供者
+                1000,//指定数据更新的间隔时间
+                1,//位置间隔的距离为1m
+                new LocationListener() {//监听GPS信息是否改变
+                    @Override
+                    public void onLocationChanged(Location location) {//GPS信息发送改变时回调
+                        Log.i("lgq","onLocationChanged===="+location.getProvider());
+                    }
+
+                    @Override
+                    public void onStatusChanged(String provider, int status, Bundle extras) {//GPS状态发送改变时回调
+
+                    }
+
+                    @Override
+                    public void onProviderEnabled(String provider) { //定位提供者启动时回调
+
+                    }
+
+                    @Override
+                    public void onProviderDisabled(String provider) { //定位提供者关闭时回调
+
+                    }
+                }
+        );
+        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);//获取最新的定位信息
+        if (location==null){
+            locationManager.requestLocationUpdates(
+                    LocationManager.NETWORK_PROVIDER,//指定GPS定位提供者
+                    5000,//指定数据更新的间隔时间
+                    10,//位置间隔的距离为1m
+                    new LocationListener() {//监听GPS信息是否改变
+                        @Override
+                        public void onLocationChanged(Location location) {//GPS信息发送改变时回调
+                            Log.i("lgq","onLocationChanged===="+location.getProvider());
+                        }
+
+                        @Override
+                        public void onStatusChanged(String provider, int status, Bundle extras) {//GPS状态发送改变时回调
+
+                        }
+
+                        @Override
+                        public void onProviderEnabled(String provider) { //定位提供者启动时回调
+
+                        }
+
+                        @Override
+                        public void onProviderDisabled(String provider) { //定位提供者关闭时回调
+
+                        }
+                    }
+            );
+            location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);//获取最新的定位信息
+        }
+        locationUpdates(location);
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -293,11 +438,15 @@ public class newshuju extends AppCompatActivity implements View.OnClickListener 
                 finish();
                 break;
             case R.id.new_ensure:
+                setStemperatureBean();
                 stemperatureBean.n_ame=name.getText().toString();
                 stemperatureBean.temperature=temperature.getText().toString()+"℃";
                 stemperatureBean.where=btnDiqu.getText().toString();
+                stemperatureBean.tesu=tesu;
                 mdatabaseHelper.insertTemperature(stemperatureBean);
-                finish();
+                Intent it=new Intent(this,MainActivity.class);
+                it.putExtra("phone",phone);
+                startActivity(it);
                 break;
         }
     }

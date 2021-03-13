@@ -5,6 +5,40 @@ public class TemperatureBean {
     public String temperature;
     public String timeTv;
     public String where;
+    public String tesu;
+    public String num;
+    public String banji;
+    public String phone;
+    public String getNum() {
+        return num;
+    }
+
+    public void setNum(String num) {
+        this.num = num;
+    }
+
+    public String getBanji() {
+        return banji;
+    }
+
+    public void setBanji(String banji) {
+        this.banji = banji;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getTesu() {
+        return tesu;
+    }
+    public void setTesu(String tesu) {
+        this.tesu = tesu;
+    }
 
     public String getN_ame() {
         return n_ame;
