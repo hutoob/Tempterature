@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public String yname,banji;
     ListView listView;
     TextView timeTV;
+    Button bar,map;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +67,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         back.setOnClickListener(this);
         Button up=findViewById(R.id.main_up);
         Button daochu=findViewById(R.id.main_daochu);
+        bar=findViewById(R.id.bar);
         up.setOnClickListener(this);
         daochu.setOnClickListener(this);
+        bar.setOnClickListener(this);
+        map=findViewById(R.id.map);
+        map.setOnClickListener(this);
     }
     public void getYname(){
         Cursor cursor=mdatabaseHelper.getAllYonghuData();
@@ -128,6 +133,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 it3.putExtra("name",yname);
                 it3.putExtra("phone",phone);
                 startActivity(it3);
+                break;
+            case R.id.bar:
+                Intent it4=new Intent(this,BarActivity.class);
+                it4.putExtra("phone",phone);
+                startActivity(it4);
+                break;
+            case R.id.map:
+                Intent it5=new Intent(this,MapActivity.class);
+                it5.putExtra("phone",phone);
+                startActivity(it5);
                 break;
         }
     }

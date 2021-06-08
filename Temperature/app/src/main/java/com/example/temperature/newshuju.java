@@ -30,8 +30,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -50,6 +52,7 @@ public class newshuju extends AppCompatActivity implements View.OnClickListener 
     RadioButton rtn1,rtn2,rtn3,rtn4,rtn5;
     EditText et1,et2,et3,et4;
     RadioGroup gp;
+    String mtime;
     private static final String[] authBaseArr = {//申请类型
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
@@ -222,6 +225,41 @@ public class newshuju extends AppCompatActivity implements View.OnClickListener 
             }
             cursor.close();
         }
+    }
+    public static boolean sameDate(Date d1, Date d2) {
+        if(null == d1 || null == d2)
+            return false;
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(d1);
+        cal1.set(Calendar.HOUR_OF_DAY, 0);
+        cal1.set(Calendar.MINUTE, 0);
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(d2);
+        cal2.set(Calendar.HOUR_OF_DAY, 0);
+        cal2.set(Calendar.MINUTE, 0);
+        return  cal1.getTime().equals(cal2.getTime());
+    }
+    public void gettianbao(){
+        Cursor cursor=mdatabaseHelper.getAllTemperatureData();
+        Date date=new Date();
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String yangli=sdf.format(date);
+        try{
+            Date date1=sdf.parse(yangli);
+            if(cursor!=null){
+                while(cursor.moveToNext()){
+                    String time=cursor.getString(cursor.getColumnIndex("tem_time"));
+                    String mphone=cursor.getString(cursor.getColumnIndex("yh_phone"));
+                    Date date2=sdf.parse(time);
+                    if(sameDate(date1,date2)&&phone.equals(mphone)){
+                        mtime=time;
+                    }
+                }
+            }
+        }catch (Exception P){
+            P.printStackTrace();
+        }
+
     }
     /**
      * 解析数据并组装成自己想要的list
@@ -438,6 +476,10 @@ public class newshuju extends AppCompatActivity implements View.OnClickListener 
                 finish();
                 break;
             case R.id.new_ensure:
+                gettianbao();
+                if(mtime!=null){
+                    mdatabaseHelper.deletemore(mtime,phone);
+                }
                 setStemperatureBean();
                 stemperatureBean.n_ame=name.getText().toString();
                 stemperatureBean.temperature=temperature.getText().toString()+"℃";

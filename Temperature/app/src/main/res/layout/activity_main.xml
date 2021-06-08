@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/beijing"
     >
     <ListView
         android:id="@+id/lv_main"
@@ -15,7 +16,7 @@
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:text="添加"
         android:background="@drawable/login"
         />
@@ -24,33 +25,50 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignBottom="@id/te_insert"
-        android:background="@color/teal_200"
+        android:background="@color/purple_500"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="20dp"
         android:text=" 退出"
         android:textStyle="bold"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:gravity="center_vertical"/>
     <Button
-        android:layout_width="80dp"
+        android:layout_width="65dp"
         android:layout_height="50dp"
         android:id="@+id/main_up"
         android:text="  班级上报"
         android:background="@color/teal_200"
         android:layout_toRightOf="@id/te_tuichu"
         android:layout_alignBottom="@id/te_tuichu"
-        android:layout_marginLeft="30dp"
         android:gravity="center_vertical"/>
     />
     <Button
-        android:layout_width="80dp"
+        android:layout_width="65dp"
         android:layout_height="50dp"
         android:id="@+id/main_daochu"
-        android:background="@color/teal_200"
+        android:background="@color/colorAccent"
         android:text=" 导出样表"
         android:layout_toRightOf="@id/main_up"
         android:layout_alignBottom="@id/main_up"
-        android:layout_marginLeft="30dp"
+        android:gravity="center_vertical"
+        />
+    <Button
+        android:layout_width="65dp"
+        android:layout_height="50dp"
+        android:id="@+id/bar"
+        android:background="@color/green_01"
+        android:text=" 体温图表"
+        android:layout_toRightOf="@id/main_daochu"
+        android:layout_alignBottom="@id/main_daochu"
+        android:gravity="center_vertical"
+        />
+    <Button
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+        android:id="@+id/map"
+        android:background="@color/purple_500"
+        android:text=" 地图"
+        android:layout_toRightOf="@id/bar"
+        android:layout_alignBottom="@id/bar"
         android:gravity="center_vertical"
         />
 </RelativeLayout>

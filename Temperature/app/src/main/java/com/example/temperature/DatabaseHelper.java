@@ -61,6 +61,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase database=getWritableDatabase();
         database.delete("temperature",null,null);
     }
+    public void deletemore(String time,String phone){
+        SQLiteDatabase database=getWritableDatabase();
+        database.delete("temperature","tem_time=? and yh_phone=?",new String[]{time,phone});
+    }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 

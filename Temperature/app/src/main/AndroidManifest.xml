@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.temperature">
 
-    <!--<uses-sdk
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
+    <!--
+<uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="18" />-->
+        android:targetSdkVersion="18" />
+    -->
     <!-- 允许程序打开网络套接字 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 允许程序设置内置sd卡的写权限 -->
@@ -22,15 +28,16 @@
         android:value="88432dec29fbab4008e35e66ac0fd14b" />
 
     <application
-        android:requestLegacyExternalStorage="true"
-
         android:allowBackup="true"
         android:icon="@mipmap/tiwen"
         android:label="@string/Temperature"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Temperature">
-        <activity android:name=".DaochuActivity"></activity>
+        <activity android:name=".MapActivity"></activity>
+        <activity android:name=".BarActivity" />
+        <activity android:name=".DaochuActivity" />
         <activity android:name=".UpActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".Zhuche" />
